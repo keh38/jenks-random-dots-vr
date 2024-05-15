@@ -144,11 +144,13 @@ public class BlobMovement : MonoBehaviour
 
         if (y > _arenaHeight/2)
         {
-            y = -_arenaHeight / 2;
+            //y = -_arenaHeight / 2;
+            y -= _arenaHeight;
         }
         else if (y < -_arenaHeight / 2)
         {
-            y = _arenaHeight / 2;
+            //y = _arenaHeight / 2;
+            y += _arenaHeight;
         }
 
         transform.localEulerAngles = new Vector3(0, angle, 0);

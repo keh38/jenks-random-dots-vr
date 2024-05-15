@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         //_udpServerChair.StartReceiving();
     }
-
+       
     public void EnableCamera(float fov)
     {
         var c = GameObject.Find("Player/Camera").GetComponent<Camera>();

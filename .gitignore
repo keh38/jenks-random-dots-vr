@@ -8,3 +8,6 @@
 /Installers/Output
 /VRD VR/Logs
 /VRD VR/.vs/VRD VR/v15/Server
+/VRD VR/.vs
+/VRD Controller/.vs
+/VRD VR/Temp
