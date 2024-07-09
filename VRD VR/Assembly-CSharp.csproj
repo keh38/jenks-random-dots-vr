@@ -177,7 +177,6 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\ViveSR\Shaders\ViveSRCG.cginc" />
     <None Include="Assets\ViveSR\Plugins\SRanipal.dll" />
-    <None Include="Assets\Scripts\VersionInfo.cs.template" />
     <None Include="Assets\ViveSR\Shaders\Resources\PortalMeshShader.shader" />
     <None Include="Assets\ViveSR\Shaders\Resources\StencilUnlitTexture.shader" />
     <None Include="Assets\ViveSR\Shaders\Unlit-Alpha2Gray.shader" />
