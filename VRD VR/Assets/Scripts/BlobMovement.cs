@@ -20,6 +20,7 @@ public class BlobMovement : MonoBehaviour
     float _maxAngle;
 
     bool _addChairVelocity;
+    bool _identicalNoise;
 
     float _horzStdDev;
     float _vertStdDev;
@@ -32,11 +33,11 @@ public class BlobMovement : MonoBehaviour
 
     BlobProperties.MovementCategory _category = BlobProperties.MovementCategory.Coherent;
 
+    BlobController _blobController;
     PlayerController _player;
     KLib.GaussianRandom _grn;
 
-
-    public void Initialize(BlobProperties blobProperties, float arenaHeight, float arenaRadius, float hfov, int lifetime, int deadtime, PlayerController player, KLib.GaussianRandom grn)
+    public void Initialize(BlobProperties blobProperties, float arenaHeight, float arenaRadius, float hfov, int lifetime, int deadtime, PlayerController player, KLib.GaussianRandom grn, BlobController blobController)
     {
         _arenaHeight = arenaHeight;
         _arenaRadius = arenaRadius;
@@ -44,9 +45,11 @@ public class BlobMovement : MonoBehaviour
         _lifeTime_frames = lifetime;
         _deadTime_frames = deadtime;
         _player = player;
+        _blobController = blobController;
         _grn = grn;
 
         _addChairVelocity = blobProperties.addChairVelocity;
+        _identicalNoise = blobProperties.identicalNoise;
         _horzStdDev = blobProperties.horizontalStdDev;
         _vertStdDev = blobProperties.verticalStdDev;
 
@@ -57,6 +60,7 @@ public class BlobMovement : MonoBehaviour
         sphere.localPosition = new Vector3(arenaRadius, 0, 0);
 
         RandomizePosition();
+        RandomizeVelocity();
 
         _numFramesThisLife = 0;
         _numDeadtimeFrames = 0;
@@ -97,8 +101,16 @@ public class BlobMovement : MonoBehaviour
 
     private void RandomizeVelocity()
     {
-        _horzRandVel = _grn.Next(0, _horzStdDev);
-        _vertRandVel = _grn.Next(0, _vertStdDev);
+        if (_identicalNoise)
+        {
+            _horzRandVel = _blobController.HorizontalVelocity;
+            _vertRandVel = _blobController.VerticalVelocity;
+        }
+        else
+        {
+            _horzRandVel = _grn.Next(0, _horzStdDev);
+            _vertRandVel = _grn.Next(0, _vertStdDev);
+        }
     }
 
     private void LateUpdate()

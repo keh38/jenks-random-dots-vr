@@ -35,7 +35,7 @@
       <HintPath>..\..\..\..\..\KLib\Framework\KLib.Controls.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\..\..\..\..\3rd Party\protobuf-net r668\Full\net30\protobuf-net.dll</HintPath>
+      <HintPath>..\..\..\..\3rd Party\protobuf-net r668\Full\net20\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,6 +58,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y "$(TargetDir)*.dll" "D:\Development\Jenks\VR\Random Dots VR\VRD VR\Assets\Plugins"</PostBuildEvent>
+    <PostBuildEvent>copy /y "$(TargetDir)*.dll" "D:\Development\Jenks\jenks-random-dots-vr\VRD VR\Assets\Plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>

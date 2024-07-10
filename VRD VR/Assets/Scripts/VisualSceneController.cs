@@ -307,6 +307,7 @@ public class VisualSceneController : MonoBehaviour
         _blobController.gameObject.SetActive(true);
         _blobController.SetProperties(_config.arena, _config.blobs);
         _blobController.InitializeBlobs(_fps, hfov);
+        _blobController.gameObject.SetActive(false);
 
         _dataLogger.StartLogging(_config, _isVR, _player, _eyeTracker);
 

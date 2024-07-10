@@ -26,12 +26,15 @@ public class PlayerController : MonoBehaviour
     public float DeltaYaw { private set; get; }
     public float YawVelocity { get { return _yawVelocity; } }
 
+    public GameObject _blobController;
+
     private void Awake()
     {
         _udpServerChair = gameObject.GetComponent<UDPServer>();
 
         _headCamera = GameObject.Find("Player").GetComponentInChildren<Camera>();
         _trackedPoseDriver = _headCamera.gameObject.GetComponent<UnityEngine.SpatialTracking.TrackedPoseDriver>();
+        _blobController = GameObject.Find("Blob Controller");
     }
 
     void Start()
@@ -148,7 +151,15 @@ public class PlayerController : MonoBehaviour
         else if (_controllerSettings.feedback == ControllerSettings.Feedback.Chair)
         {
             _yawVelocity = _udpServerChair.RequestStateVariables();
-            DeltaYaw = _yawVelocity * Time.deltaTime;
+            if (!float.IsNaN(_yawVelocity))
+            {
+                _blobController.SetActive(true);
+                DeltaYaw = _yawVelocity * Time.deltaTime;
+            }
+            else
+            {
+                _blobController.SetActive(false);
+            }
             //transform.Rotate(0, DeltaYaw, 0);
             //if (!float.IsNaN(_udpServerChair.Angle))
             //{

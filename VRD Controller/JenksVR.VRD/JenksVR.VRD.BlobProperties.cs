@@ -37,5 +37,8 @@ namespace JenksVR.VRD
 
         [ProtoMember(10, IsRequired = true)]
         public float verticalStdDev;
+
+        [ProtoMember(11, IsRequired = true)]
+        public bool identicalNoise;
     }
 }

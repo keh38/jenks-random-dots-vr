@@ -29,6 +29,9 @@ public class BlobController : MonoBehaviour
     private int _numBrownian;
     private int _numWhiteNoise;
 
+    float _horzRandVel;
+    float _vertRandVel;
+
     private KLib.GaussianRandom _grn;
 
     private void Awake()
@@ -56,6 +59,9 @@ public class BlobController : MonoBehaviour
         _blobProperties = blobProperties;
     }
 
+    public float HorizontalVelocity { get { return _horzRandVel; } }
+    public float VerticalVelocity { get { return _vertRandVel; } }
+
     public void InitializeBlobs(float frameRate, float hfov)
     {
         _fov = hfov;
@@ -79,6 +85,7 @@ public class BlobController : MonoBehaviour
             _numCoherent = 0;
             _numBrownian = 0;
             _numWhiteNoise = _numDots;
+            RandomizeVelocity();
         }
 
         int lifetime = -1;
@@ -115,7 +122,7 @@ public class BlobController : MonoBehaviour
         foreach (var b in _blobs)
         {
             b.Initialize(_blobProperties, height, _arenaProperties.radius, hfov,
-                lifetime, deadtime, _player, _grn);
+                lifetime, deadtime, _player, _grn, this);
         }
 
         _blobPrefab.gameObject.SetActive(false);
@@ -128,6 +135,10 @@ public class BlobController : MonoBehaviour
     private void Update()
     {
         RandomizeCategories();
+        if (_isRunning)
+        {
+            RandomizeVelocity();
+        }
     }
 
     private void RandomizeCategories()
@@ -137,6 +148,12 @@ public class BlobController : MonoBehaviour
         for (int k = 0; k < _numCoherent; k++) _blobs[order[k]].SetCategory(BlobProperties.MovementCategory.Coherent);
         for (int k = 0; k < _numBrownian; k++) _blobs[order[k + _numCoherent]].SetCategory(BlobProperties.MovementCategory.Brownian);
         for (int k = 0; k < _numWhiteNoise; k++) _blobs[order[k + _numCoherent + _numBrownian]].SetCategory(BlobProperties.MovementCategory.WhiteNoise);
+    }
+
+    private void RandomizeVelocity()
+    {
+        _horzRandVel = _grn.Next(0, _blobProperties.horizontalStdDev);
+        _vertRandVel = _grn.Next(0, _blobProperties.verticalStdDev);
     }
 
     public void Halt()

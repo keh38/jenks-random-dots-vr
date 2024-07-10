@@ -29,6 +29,7 @@ public class ConfigPanel : MonoBehaviour
     private InputField _horzStdDev;
     private InputField _vertStdDev;
     private Toggle _addVChair;
+    private Toggle _identicalNoise;
     // Control
     private Dropdown _feedback;
     private InputField _camOffset;
@@ -63,6 +64,7 @@ public class ConfigPanel : MonoBehaviour
         _horzStdDev = GameObject.Find("Motion/Horz Std Dev").GetComponent<InputField>();
         _vertStdDev = GameObject.Find("Motion/Vert Std Dev").GetComponent<InputField>();
         _addVChair = GameObject.Find("Motion/Add Chair Velocity").GetComponent<Toggle>();
+        _identicalNoise = GameObject.Find("Motion/Identical Noise").GetComponent<Toggle>();
 
         _feedback = GameObject.Find("Control/Feedback").GetComponent<Dropdown>();
         _chairAddress = GameObject.Find("Control/Chair Address").GetComponent<InputField>();
@@ -170,6 +172,7 @@ public class ConfigPanel : MonoBehaviour
         _horzStdDev.text = c.blobs.horizontalStdDev.ToString();
         _vertStdDev.text = c.blobs.verticalStdDev.ToString();
         _addVChair.isOn = c.blobs.addChairVelocity;
+        _identicalNoise.isOn = c.blobs.identicalNoise;
 
         _feedback.value = (int)c.controller.feedback;
         _chairAddress.text = c.controller.chairAddress;
@@ -197,6 +200,7 @@ public class ConfigPanel : MonoBehaviour
         _config.blobs.horizontalStdDev = float.Parse(_horzStdDev.text);
         _config.blobs.verticalStdDev = float.Parse(_vertStdDev.text);
         _config.blobs.addChairVelocity = _addVChair.isOn;
+        _config.blobs.identicalNoise = _identicalNoise.isOn;
 
         _config.controller.feedback = (ControllerSettings.Feedback)_feedback.value;
         _config.controller.chairAddress = _chairAddress.text;

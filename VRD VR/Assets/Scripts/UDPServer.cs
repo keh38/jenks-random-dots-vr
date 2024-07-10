@@ -148,14 +148,21 @@ public class UDPServer : MonoBehaviour
 
     public float RequestStateVariables()
     {
-        _client.Send(BitConverter.GetBytes(DateTime.Now.Ticks), 8, _remoteIP);
+        try
+        {
+            _client.Send(BitConverter.GetBytes(DateTime.Now.Ticks), 8, _remoteIP);
 
-        IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, _port);
-        byte[] data = _client.Receive(ref anyIP);
+            IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, _port);
+            byte[] data = _client.Receive(ref anyIP);
 
-        // Note the minus sign: NKI and Unity have opposite conventions
-        _angle = -BitConverter.ToSingle(data, 0);
-        _velocity = BitConverter.ToSingle(data, 4);
+            // Note the minus sign: NKI and Unity have opposite conventions
+            _angle = -BitConverter.ToSingle(data, 0);
+            _velocity = BitConverter.ToSingle(data, 4);
+        }
+        catch (Exception ex)
+        {
+            _velocity = float.NaN;
+        }
 
         return _velocity;
     }
