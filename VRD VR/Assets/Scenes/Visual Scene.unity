@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9176675872293494ab58bdd54f1a3f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blobController: {fileID: 0}
 --- !u!114 &1083945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8509,7 +8510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &1276470623
 Camera:
   m_ObjectHideFlags: 0

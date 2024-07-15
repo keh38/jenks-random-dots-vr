@@ -2,7 +2,7 @@
 
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING .ISS SCRIPT FILES!
 
-#define semver "1.8"
+;#define semver "1.9"
 #define verStr_ StringChange(semver, '.', '-')
 
 ;#include "CommonInfo.iss"
