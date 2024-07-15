@@ -1,6 +1,6 @@
 ## Changelog
 
-### v1.9 (unreleased)
+### v1.9 (2024-07-15)
 #### Added
 - option to make white noise identical across dots
 #### Changed
