@@ -152,6 +152,7 @@ public class BlobController : MonoBehaviour
 
     private void RandomizeVelocity()
     {
+        // updates every frame, but value is "latched" when the lifetime + deadtime expires in BlobMovement.cs
         _horzRandVel = _grn.Next(0, _blobProperties.horizontalStdDev);
         _vertRandVel = _grn.Next(0, _blobProperties.verticalStdDev);
     }
