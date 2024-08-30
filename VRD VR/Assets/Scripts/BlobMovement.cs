@@ -32,6 +32,7 @@ public class BlobMovement : MonoBehaviour
     int _numDeadtimeFrames = 0;
 
     BlobProperties.MovementCategory _category = BlobProperties.MovementCategory.Coherent;
+    BlobProperties.NoiseUnits _noiseUnits = BlobProperties.NoiseUnits.DegPerSec;
 
     BlobController _blobController;
     PlayerController _player;
@@ -52,6 +53,7 @@ public class BlobMovement : MonoBehaviour
         _identicalNoise = blobProperties.identicalNoise;
         _horzStdDev = blobProperties.horizontalStdDev;
         _vertStdDev = blobProperties.verticalStdDev;
+        _noiseUnits = blobProperties.noiseUnits;
 
         _minAngle = -0.5f * _hfov + 270f;
         _maxAngle = 0.5f * _hfov + 270f;
@@ -110,6 +112,20 @@ public class BlobMovement : MonoBehaviour
         {
             _horzRandVel = _grn.Next(0, _horzStdDev);
             _vertRandVel = _grn.Next(0, _vertStdDev);
+        }
+
+        if (_noiseUnits == BlobProperties.NoiseUnits.PercentOfChair)
+        {
+            if (float.IsNaN(_player.YawVelocity))
+            {
+                _horzRandVel = 0;
+                _vertRandVel = 0;
+            }
+            else
+            {
+                _horzRandVel *= 0.01f * _player.YawVelocity;
+                _vertRandVel *= 0.01f * _player.YawVelocity;
+            }
         }
     }
 

@@ -70,7 +70,8 @@ public class VisualSceneController : MonoBehaviour
     {
         Application.runInBackground = true;
 #if UNITY_EDITOR
-        Application.targetFrameRate = 90;
+        //Application.targetFrameRate = 90;
+        Application.targetFrameRate = 30;
 #endif
         QualitySettings.maxQueuedFrames = 1;
         Debug.Log("max queued frames = " + QualitySettings.maxQueuedFrames);
@@ -195,6 +196,7 @@ public class VisualSceneController : MonoBehaviour
         }
         else if (_state == State.Configuring)
         {
+            if (Input.GetKeyUp(KeyCode.O) || Input.GetButtonUp("XboxA")) CaptureScreenshot();
         }
         else if (_state == State.MeasuringRTT)
         {

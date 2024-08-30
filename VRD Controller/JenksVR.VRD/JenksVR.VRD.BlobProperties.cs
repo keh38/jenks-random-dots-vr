@@ -7,6 +7,7 @@ namespace JenksVR.VRD
     {
         public enum MovementMode { Brownian, WhiteNoise}
         public enum MovementCategory { Coherent, Brownian, WhiteNoise}
+        public enum NoiseUnits { DegPerSec, PercentOfChair}
 
         [ProtoMember(1, IsRequired = true)]
         public float diameter_cm = 1f;
@@ -40,5 +41,8 @@ namespace JenksVR.VRD
 
         [ProtoMember(11, IsRequired = true)]
         public bool identicalNoise;
+
+        [ProtoMember(12, IsRequired = true)]
+        public NoiseUnits noiseUnits;
     }
 }

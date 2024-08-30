@@ -28,6 +28,7 @@ public class ConfigPanel : MonoBehaviour
     private InputField _coherence;
     private InputField _horzStdDev;
     private InputField _vertStdDev;
+    private Dropdown _noiseUnits;
     private Toggle _addVChair;
     private Toggle _identicalNoise;
     // Control
@@ -63,6 +64,7 @@ public class ConfigPanel : MonoBehaviour
         _coherence = GameObject.Find("Motion/Coherence Input").GetComponent<InputField>();
         _horzStdDev = GameObject.Find("Motion/Horz Std Dev").GetComponent<InputField>();
         _vertStdDev = GameObject.Find("Motion/Vert Std Dev").GetComponent<InputField>();
+        _noiseUnits = GameObject.Find("Motion/Noise Units").GetComponent<Dropdown>();
         _addVChair = GameObject.Find("Motion/Add Chair Velocity").GetComponent<Toggle>();
         _identicalNoise = GameObject.Find("Motion/Identical Noise").GetComponent<Toggle>();
 
@@ -167,10 +169,11 @@ public class ConfigPanel : MonoBehaviour
         _deadtime.text = c.blobs.deadTime_ms.ToString();
         _strobed.isOn = c.blobs.strobed;
 
-        _motionMode.value = (int)c.blobs.movementMode;
+        _motionMode.value = (int) c.blobs.movementMode;
         _coherence.text = c.blobs.coherence.ToString();
         _horzStdDev.text = c.blobs.horizontalStdDev.ToString();
         _vertStdDev.text = c.blobs.verticalStdDev.ToString();
+        _noiseUnits.value = (int) c.blobs.noiseUnits;
         _addVChair.isOn = c.blobs.addChairVelocity;
         _identicalNoise.isOn = c.blobs.identicalNoise;
 
@@ -182,6 +185,19 @@ public class ConfigPanel : MonoBehaviour
         _showFrameRate.isOn = c.debug.showFrameRate;
         _createLog.isOn = c.debug.createLog;
         _windowOnly.isOn = c.debug.windowOnly;
+
+        ShowValidControls();
+    }
+
+    private void ShowValidControls()
+    {
+        bool showBrownian = _motionMode.value == 0;
+        _coherence.gameObject.SetActive(showBrownian);
+        _horzStdDev.gameObject.SetActive(!showBrownian);
+        _vertStdDev.gameObject.SetActive(!showBrownian);
+        _noiseUnits.gameObject.SetActive(!showBrownian);
+        _addVChair.gameObject.SetActive(!showBrownian);
+        _identicalNoise.gameObject.SetActive(!showBrownian);
     }
 
     private void ScanConfig()
@@ -199,6 +215,7 @@ public class ConfigPanel : MonoBehaviour
         _config.blobs.coherence = float.Parse(_coherence.text);
         _config.blobs.horizontalStdDev = float.Parse(_horzStdDev.text);
         _config.blobs.verticalStdDev = float.Parse(_vertStdDev.text);
+        _config.blobs.noiseUnits = (BlobProperties.NoiseUnits)_noiseUnits.value;
         _config.blobs.addChairVelocity = _addVChair.isOn;
         _config.blobs.identicalNoise = _identicalNoise.isOn;
 
@@ -210,6 +227,11 @@ public class ConfigPanel : MonoBehaviour
         _config.debug.showFrameRate = _showFrameRate.isOn;
         _config.debug.createLog = _createLog.isOn;
         _config.debug.windowOnly = _windowOnly.isOn;
+    }
+
+    public void ModeChanged()
+    {
+        ShowValidControls();
     }
 
     public void OKButton_Pressed()
