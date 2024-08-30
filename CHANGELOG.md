@@ -1,6 +1,6 @@
 ## Changelog
 
-### v1.10 (unreleased
+### v1.10 (unreleased)
 #### Added
 - option to express white noise s.d. in deg/s or %Vchair
 #### Changed
